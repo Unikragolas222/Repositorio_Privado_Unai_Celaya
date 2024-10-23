@@ -2,8 +2,8 @@ import socket
 import threading
 
 # Configuración del cliente
-HOST = '127.0.0.1'  # Dirección IP del servidor (localhost)
-PORT = 12345        # Puerto del servidor
+host = '127.0.0.1'  # Dirección IP del servidor (localhost)
+port = 12345        # Puerto del servidor
 
 def recibir_mensajes(client):
     while True:
@@ -23,7 +23,7 @@ def enviar_mensajes(client):
 
 # Conectar al servidor
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((HOST, PORT))
+client.connect((host, port))
 
 # Crear hilos para enviar y recibir mensajes simultáneamente
 thread_recibir = threading.Thread(target=recibir_mensajes, args=(client,))
