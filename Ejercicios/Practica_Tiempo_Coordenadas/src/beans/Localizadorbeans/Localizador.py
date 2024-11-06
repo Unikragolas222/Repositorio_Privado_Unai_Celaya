@@ -1,7 +1,7 @@
 from geopy.geocoders import Nominatim
 
-# Clase para obtener la dirección a partir de la latitud y longitud usando Nominatim
-class Localizador:
+# Clase Ubicacion para obtener la dirección
+class Ubicacion:
     def __init__(self, latitud, longitud):
         self.latitud = latitud
         self.longitud = longitud
@@ -11,8 +11,6 @@ class Localizador:
         try:
             geolocator = Nominatim(user_agent="test")
             location = geolocator.reverse(f"{self.latitud}, {self.longitud}")
-            self.direccion = location.address if location else "Dirección no encontrada"
+            self.direccion = location.raw if location else None
         except Exception as e:
             print(f"Error al obtener la dirección: {e}")
-            self.direccion = "Error al obtener la dirección"
-        return self.direccion
