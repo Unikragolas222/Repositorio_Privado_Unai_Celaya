@@ -1,8 +1,5 @@
 import requests
 
-
-
-
 # Clase para obtener el clima (temperatura y velocidad del viento) de Open-Meteo
 class Clima:
 
