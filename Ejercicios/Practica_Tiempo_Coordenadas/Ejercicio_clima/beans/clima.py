@@ -40,6 +40,5 @@ class Clima:
             self.temperatura, self.velocidad_viento = "Error", "Error"
         return self.temperatura, self.velocidad_viento
 
-
 # a = Clima("42.86","-2.64")
 # a.obtener_datos_climaticos()

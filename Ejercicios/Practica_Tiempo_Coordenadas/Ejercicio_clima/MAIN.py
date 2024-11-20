@@ -14,7 +14,6 @@ def insertar_ubicacion(gestor):
     else:
         print(f"La ubicación '{lat}, {lng}' ya existe.")
     print(f"Numero de ubicaciones actualmente: {gestor.get_numero_ubicaciones()}")
-
 def buscar_ubicacion(gestor):
     codigo_postal = input("Introduce el codigo postal que deseas buscar: ")
     

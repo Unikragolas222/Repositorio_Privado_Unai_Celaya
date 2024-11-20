@@ -1,7 +1,5 @@
 from geopy.geocoders import Nominatim
-
 from beans.clima import Clima
-
 
 
 # Clase para obtener la dirección a partir de la latitud y longitud usando Nominatim
@@ -23,6 +21,12 @@ class Localizador:
         self.longitud = longitud
         self.__obtener_direccion()
         self.clima = Clima(self.latitud, self.longitud)
+
+    def to_dict(self):
+        { 
+
+
+        }
 
     def __obtener_direccion(self):
         try:

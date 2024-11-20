@@ -2,6 +2,7 @@
 
 import json
 from beans.localizador import Localizador
+from basededatos import almacenamiento_bd
 
 class GestorDeDatosClimaticos:
 
@@ -40,7 +41,9 @@ class GestorDeDatosClimaticos:
                 break
         
         if not ubicacion_encontrada:
-            self.ubicaciones.append(Localizador(latitud, longitud))
+            p = Localizador(latitud, longitud)
+            almacenamiento_bd.insertar_una_localizacion(p)
+            self.ubicaciones.append(p)
             print("Ubicación agregada correctamente")
         else:
             print("Ubicación ya existe")
