@@ -42,7 +42,7 @@ class GestorDeDatosClimaticos:
         
         if not ubicacion_encontrada:
             p = Localizador(latitud, longitud)
-            almacenamiento_bd.insertar_una_localizacion(p)
+            almacenamiento_bd.insertar_una_localizacion(p.to_dict())
             self.ubicaciones.append(p)
             print("Ubicación agregada correctamente")
         else:
