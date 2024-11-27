@@ -222,3 +222,5 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/linux,visualstudiocode,python,venv
 
 .config.ini
+**.config.ini
+*.config.ini
