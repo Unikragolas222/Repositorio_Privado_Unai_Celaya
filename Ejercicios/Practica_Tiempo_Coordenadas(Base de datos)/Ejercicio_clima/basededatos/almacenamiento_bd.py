@@ -34,6 +34,14 @@ db_pruebas = client[db_name][collection_name].find({})
 for x in db_pruebas:
     print(x)
 
+def cargar_y_usar_datos():
+    print(f"Cargando y utilizando datos de '{db_name}.{collection_name}':")
+    documentos = client[db_name][collection_name].find({})
+    datos = [doc for doc in documentos]
+    print("Datos cargados exitosamente.")
+    # Aquí puedes añadir lógica para usar los datos cargados
+    return datos
+
 def buscar_codigo_postal (codigo_postal):
     # mostramos los datos de una base de datos mediante el filtro
     print("Mostramos los datos especificos de una base de datos prueba-hola")

@@ -42,6 +42,21 @@ def mostrar_codigos_postales_y_provincias_almacenadas(gestor):
     gestor.mostrar_codigos_postales_y_provincias_almacenadas()
     print("================================================")
 
+def cargar_localizaciones(gestor):
+    print("Cargando localizaciones desde la base de datos...")
+    localizaciones = gestor.cargar_localizaciones()
+    if localizaciones:
+        print(f"Se han cargado {len(localizaciones)} localizaciones.")
+        for loc in localizaciones:
+            print(loc)
+    else:
+        print("No se encontraron localizaciones en la base de datos.")
+
+def mostrar_codigos_postales_y_provincias_almacenadas(gestor):
+    print("================================================")
+    gestor.mostrar_codigos_postales_y_provincias_almacenadas()
+    print("================================================")
+
 if __name__ == "__main__":
     # Crear el gestor de datos y obtener la información
     gestor = GestorDeDatosClimaticos()

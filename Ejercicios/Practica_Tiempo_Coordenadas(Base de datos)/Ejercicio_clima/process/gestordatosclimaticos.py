@@ -3,14 +3,17 @@
 import json
 from beans.localizador import Localizador
 from basededatos import almacenamiento_bd
+from pymongo import MongoClient
 
 class GestorDeDatosClimaticos:
 
-    ubicaciones = []
-
     def __init__(self):
-        print("Iniciando gestor de datos climaticos")
-        print(f"Numero de ubicaciones actuales: {self.get_numero_ubicaciones()}")
+        print("Iniciando gestor de datos climáticos")
+        self.client = MongoClient('mongodb://localhost:27017/')
+        self.db_name = "eda"
+        self.collection_name = "localizaciones"
+        self.ubicaciones = self.cargar_ubicaciones()  # Cargar ubicaciones desde la base de datos
+        print(f"Número de ubicaciones actuales: {self.get_numero_ubicaciones()}")
 
     def get_numero_ubicaciones(self):
         return len(self.ubicaciones)
@@ -28,8 +31,7 @@ class GestorDeDatosClimaticos:
         else:
             print("No hay ubicaciones almacenadas")
 
-    # metodos necesarios
-    def insertar_nueva_ubicacion(self,latitud, longitud):
+    def insertar_nueva_ubicacion(self, latitud, longitud):
         ubicacion_encontrada = False
         for ubicacion in self.ubicaciones:
             if ubicacion.check_lat_lng(latitud, longitud):
@@ -45,21 +47,27 @@ class GestorDeDatosClimaticos:
             almacenamiento_bd.insertar_una_localizacion(p.to_dict())
             self.ubicaciones.append(p)
             print("Ubicación agregada correctamente")
-        else:
-            print("Ubicación ya existe")
         return ubicacion_encontrada
 
-    def buscar_por_codigo_postal(self,codigo_postal):
-        ubicacion_encontrada = None
+    def buscar_por_codigo_postal(self, codigo_postal):
         for ubicacion in self.ubicaciones:
             if ubicacion.codigo_postal == codigo_postal:
-                ubicacion_encontrada = ubicacion
-                break
-        return ubicacion_encontrada
+                return ubicacion
+        return None
     
-    def buscar_por_provincia(self,provincia):
+    def buscar_por_provincia(self, provincia):
         lista_ubicaciones = []
         for ubicacion in self.ubicaciones:
             if ubicacion.provincia == provincia:
                 lista_ubicaciones.append(ubicacion)
         return lista_ubicaciones
+
+    def cargar_ubicaciones(self):
+        """Cargar ubicaciones desde la base de datos y devolver una lista de instancias de Localizador."""
+        ubicaciones = []
+        documentos = self.client[self.db_name][self.collection_name].find({})
+        for doc in documentos:
+            # Usar el método from_dict para crear una instancia de Localizador
+            ubicacion = Localizador.from_dict(doc)
+            ubicaciones.append(ubicacion)
+        return ubicaciones

@@ -85,6 +85,17 @@ class Localizador:
         print(info_localizador)
         print(self.clima)
 
+        # Convertir lista de ubicaciones a diccionario usando código postal como clave
+        ubicaciones_dict = {ubicacion.codigo_postal: ubicacion for ubicacion in self.ubicaciones}
+    
+    class Localizador:
+        def __init__(self, latitud, longitud):
+            self.latitud = latitud
+            self.longitud = longitud
+
+    def __str__(self):
+        return f"Localizador(latitud={self.latitud}, longitud={self.longitud})"
+
 # a = Localizador("42.86","-2.64")
 # print(f"Direccion: {a.direccion}")
 # print(f"Temperatura: {a.clima.temperatura}")

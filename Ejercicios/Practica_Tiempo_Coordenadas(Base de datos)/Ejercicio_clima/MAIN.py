@@ -1,5 +1,3 @@
-
-
 # Ejemplo de uso
 from process.gestordatosclimaticos import GestorDeDatosClimaticos
 

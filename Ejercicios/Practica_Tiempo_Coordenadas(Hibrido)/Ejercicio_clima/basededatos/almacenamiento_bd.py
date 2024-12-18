@@ -30,9 +30,17 @@ def insertar_una_localizacion(localizacion):
 def meter_datos_basedatos():
     # mostramos los datos de una base de datos
     print("Mostramos los datos de una base de datos prueba-hola")
-db_pruebas = client[db_name][collection_name].find({})
-for x in db_pruebas:
-    print(x)
+    db_pruebas = client[db_name][collection_name].find({})
+    for x in db_pruebas:
+        print(x)
+
+def cargar_y_usar_datos():
+    print(f"Cargando y utilizando datos de '{db_name}.{collection_name}':")
+    documentos = client[db_name][collection_name].find({})
+    datos = [doc for doc in documentos]
+    print("Datos cargados exitosamente.")
+    # Aquí puedes añadir lógica para usar los datos cargados
+    return datos
 
 def buscar_codigo_postal (codigo_postal):
     # mostramos los datos de una base de datos mediante el filtro
@@ -47,3 +55,22 @@ def buscar_provincia (provincia):
         db_pruebas = client[db_name][collection_name].find({"provincia":provincia})
         for x in db_pruebas:
             print(x)
+
+def obtener_todas_las_ubicaciones():
+    try:
+        # Conexión a la base de datos MongoDB
+        cliente = MongoClient("mongodb://localhost:27017/")
+        db = cliente[db_name]
+        coleccion = db[collection_name]
+        
+        # Obtener todas las ubicaciones como un diccionario
+        ubicaciones = {}
+        for doc in coleccion.find():  # Cada documento de la colección
+            ubicaciones[doc["_id"]] = {
+                "latitud": doc.get("latitud"),
+                "longitud": doc.get("longitud"),
+            }
+        return ubicaciones
+    except Exception as e:
+        print(f"Error al obtener ubicaciones de la base de datos: {e}")
+        return {}
